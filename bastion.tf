@@ -6,7 +6,7 @@ resource "yandex_compute_instance" "bastion-host" {
   resources {
     cores         = 2
     memory        = 2
-    core_fraction = 40
+    core_fraction = 20
   }
 
   boot_disk {
@@ -18,28 +18,15 @@ resource "yandex_compute_instance" "bastion-host" {
 
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.external_subnet_b.id
+    subnet_id          = yandex_vpc_subnet.external_subnet.id
     nat                = true
     nat_ip_address     = yandex_vpc_address.bastion_address.external_ipv4_address.0.address
     security_group_ids = [yandex_vpc_security_group.secure-port-sg.id]
   }
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.internal_subnet_b.id
-    nat_ip_address     = "172.16.16.254"
-    security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id]
-  }
-
-    network_interface {
-    subnet_id          = yandex_vpc_subnet.external_subnet_a.id
-    nat                = true
-    nat_ip_address     = yandex_vpc_address.bastion_address.external_ipv4_address.0.address
-    security_group_ids = [yandex_vpc_security_group.secure-port-sg.id]
-  }
-
-  network_interface {
-    subnet_id          = yandex_vpc_subnet.internal_subnet_a.id
-    nat_ip_address     = "172.16.16.254"
+    subnet_id          = yandex_vpc_subnet.internal_subnet.id
+    nat_ip_address     = "172.16.15.254"
     security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id]
   }
 

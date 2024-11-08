@@ -18,18 +18,32 @@ resource "yandex_vpc_security_group" "internal-bastion-sg" {
 
   ingress {
     protocol       = "TCP"
-    description    = "for ssh"
-    v4_cidr_blocks = ["172.16.16.254/32"]
+    description    = "in ssh"
+    v4_cidr_blocks = ["0.0.0.0/0"]
     port           = 22
   }
 
   egress {
     protocol       = "TCP"
-    description    = "for ssh"
+    description    = "out ssh"
     v4_cidr_blocks = ["0.0.0.0/0"]
     from_port      = 22
     to_port        = 22
   }
 
-}
+  ingress {
+    protocol       = "ICMP"
+    description    = "in icmp"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 8
+  }
 
+  egress {
+    protocol       = "ICMP"
+    description    = "out icmp"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    from_port      = 8
+    to_port        = 8
+  }
+
+}

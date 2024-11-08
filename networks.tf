@@ -3,36 +3,23 @@ resource "yandex_vpc_network" "external_network" {
   name = "external-network"
 }
 
-resource "yandex_vpc_subnet" "external_subnet_a" {
-  name           = "external-subnet-a"
+resource "yandex_vpc_subnet" "external_subnet" {
+  name           = "external-subnet"
   network_id     = yandex_vpc_network.external_network.id
-  v4_cidr_blocks = ["172.16.17.0/28"]
-  zone           = "ru-central1-a"
-}
-
-resource "yandex_vpc_subnet" "external_subnet_b" {
-  name           = "external-subnet-b"
-  network_id     = yandex_vpc_network.external_network.id
-  v4_cidr_blocks = ["172.16.17.0/28"]
+  v4_cidr_blocks = ["172.16.16.0/24"]
   zone           = "ru-central1-b"
 }
+
 
 #Внутренняя сеть
 resource "yandex_vpc_network" "internal_network" {
   name = "internal-network"
 }
 
-resource "yandex_vpc_subnet" "internal_subnet_a" {
-  name           = "internal-subnet-a"
+resource "yandex_vpc_subnet" "internal_subnet" {
+  name           = "internal-subnet"
   network_id     = yandex_vpc_network.internal_network.id
-  v4_cidr_blocks = ["172.16.16.0/24"]
-  zone           = "ru-central1-a"
-}
-
-resource "yandex_vpc_subnet" "internal_subnet_b" {
-  name           = "internal-subnet-b"
-  network_id     = yandex_vpc_network.internal_network.id
-  v4_cidr_blocks = ["172.16.16.0/24"]
+  v4_cidr_blocks = ["172.16.15.0/24"]
   zone           = "ru-central1-b"
 }
 
@@ -49,6 +36,11 @@ resource "yandex_vpc_route_table" "rt" {
   network_id = yandex_vpc_network.internal_network.id
 
   static_route {
+    destination_prefix = "172.16.16.0/24"
+    next_hop_address   = "172.16.15.0"
+  }
+
+  static_route {
     destination_prefix = "0.0.0.0/0"
     gateway_id         = yandex_vpc_gateway.nat_gateway.id
   }
@@ -62,5 +54,3 @@ resource "yandex_vpc_address" "bastion_address" {
     zone_id = "ru-central1-b"
   }
 }
-
-

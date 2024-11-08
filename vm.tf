@@ -1,6 +1,6 @@
 resource "yandex_compute_instance" "vm-a" {
   name        = "vm-a"
-  zone        = "ru-central1-a"
+  zone        = "ru-central1-b"
   platform_id = "standard-v3"
 
   resources {
@@ -36,7 +36,7 @@ resource "yandex_compute_instance" "vm-a" {
 }
 
 resource "yandex_compute_instance" "vm-b" {
-  name        = "vm-a"
+  name        = "vm-b"
   zone        = "ru-central1-b"
   platform_id = "standard-v3"
 
