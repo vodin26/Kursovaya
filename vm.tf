@@ -11,7 +11,7 @@ resource "yandex_compute_instance" "vm-a" {
 
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.bastion_internal_segment.id
+    subnet_id          = yandex_vpc_subnet.internal_subnet.id
     nat                = false
     security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id]
   }
@@ -48,7 +48,7 @@ resource "yandex_compute_instance" "vm-b" {
 
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.bastion_internal_segment.id
+    subnet_id          = yandex_vpc_subnet.internal_subnet.id
     nat                = false
     security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id]
   }
