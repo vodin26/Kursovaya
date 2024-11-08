@@ -3,8 +3,15 @@ resource "yandex_vpc_network" "external_network" {
   name = "external-network"
 }
 
-resource "yandex_vpc_subnet" "external_subnet" {
-  name           = "external-subnet"
+resource "yandex_vpc_subnet" "external_subnet_a" {
+  name           = "external-subnet-a"
+  network_id     = yandex_vpc_network.external_network.id
+  v4_cidr_blocks = ["172.16.17.0/28"]
+  zone           = "ru-central1-a"
+}
+
+resource "yandex_vpc_subnet" "external_subnet_b" {
+  name           = "external-subnet-b"
   network_id     = yandex_vpc_network.external_network.id
   v4_cidr_blocks = ["172.16.17.0/28"]
   zone           = "ru-central1-b"
@@ -15,8 +22,15 @@ resource "yandex_vpc_network" "internal_network" {
   name = "internal-network"
 }
 
-resource "yandex_vpc_subnet" "internal_subnet" {
-  name           = "internal-subnet"
+resource "yandex_vpc_subnet" "internal_subnet_a" {
+  name           = "internal-subnet-a"
+  network_id     = yandex_vpc_network.internal_network.id
+  v4_cidr_blocks = ["172.16.16.0/24"]
+  zone           = "ru-central1-a"
+}
+
+resource "yandex_vpc_subnet" "internal_subnet_b" {
+  name           = "internal-subnet-b"
   network_id     = yandex_vpc_network.internal_network.id
   v4_cidr_blocks = ["172.16.16.0/24"]
   zone           = "ru-central1-b"
