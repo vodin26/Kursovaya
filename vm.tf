@@ -24,7 +24,7 @@ resource "yandex_compute_instance" "bastion-host" {
   network_interface {
     subnet_id          = yandex_vpc_subnet.bastion_subnet.id
     nat                = true
-    ip_address         = "192.168.18.10"
+    ip_address         = "172.16.18.10"
     security_group_ids = [yandex_vpc_security_group.secure-port-sg.id]
   }
   metadata = {
