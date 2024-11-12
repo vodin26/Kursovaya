@@ -48,7 +48,7 @@ resource "yandex_vpc_subnet" "internal_subnet-lb" {
 resource "yandex_vpc_subnet" "bastion_subnet" {
   name           = "bastion-subnet"
   zone           = "ru-central1-d"
-  v4_cidr_blocks = ["192.168.18.0/24"]
+  v4_cidr_blocks = ["172.16.18.0/24"]
   network_id     = yandex_vpc_network.external_network.id
 
 }

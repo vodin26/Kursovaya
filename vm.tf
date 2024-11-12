@@ -1,6 +1,7 @@
 #Bastion
 resource "yandex_compute_instance" "bastion-host" {
   name        = "bastion-host"
+  hostname    = "bastion-host"
   platform_id = "standard-v3"
   zone        = "ru-central1-d"
 
@@ -25,7 +26,7 @@ resource "yandex_compute_instance" "bastion-host" {
     subnet_id          = yandex_vpc_subnet.bastion_subnet.id
     nat                = true
     ip_address         = "172.16.18.10"
-    security_group_ids = [yandex_vpc_security_group.secure-port-sg.id]
+    security_group_ids = [yandex_vpc_security_group.secure-port-sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
   metadata = {
     user-data = "${file("./meta.yaml")}"
@@ -51,7 +52,7 @@ resource "yandex_compute_instance" "vm-a" {
     subnet_id          = yandex_vpc_subnet.internal_subnet-a.id
     nat                = false
     ip_address         = "172.16.15.10"
-    security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id]
+    security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
 
   scheduling_policy {
@@ -76,6 +77,7 @@ resource "yandex_compute_instance" "vm-a" {
 #vm-b
 resource "yandex_compute_instance" "vm-b" {
   name        = "vm-b"
+  hostname    = "vm-b"
   zone        = "ru-central1-b"
   platform_id = "standard-v3"
 
@@ -90,7 +92,7 @@ resource "yandex_compute_instance" "vm-b" {
     subnet_id          = yandex_vpc_subnet.internal_subnet-b.id
     nat                = false
     ip_address         = "172.16.16.10"
-    security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id]
+    security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
 
   scheduling_policy {
@@ -180,6 +182,7 @@ resource "yandex_compute_instance" "kibana" {
   }
 }
 
+#elasticsearch
 resource "yandex_compute_instance" "elasticsearch" {
   name        = "elasticsearch"
   hostname    = "elasticsearch"

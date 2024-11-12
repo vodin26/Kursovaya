@@ -1,5 +1,5 @@
 output "bastion_external_ip" {
-  value = yandex_vpc_address.bastion_address.external_ipv4_address.0.address
+  value = yandex_compute_instance.bastion-host.network_interface[0].nat_ip_address
 }
 output "ip_address_a" {
   value = yandex_compute_instance.vm-a.network_interface[0].ip_address
