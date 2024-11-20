@@ -14,7 +14,7 @@ resource "yandex_alb_virtual_host" "virtual_host" {
         }
       }
       http_route_action {
-        backend_group_id = yandex_alb_backend_group.backend-group.id
+        backend_group_id = yandex_alb_backend_group.backend_group.id
         timeout          = "10s"
       }
     }

@@ -1,5 +1,5 @@
 #Bastion
-resource "yandex_compute_instance" "bastion-host" {
+resource "yandex_compute_instance" "bastion_host" {
   name        = "bastion-host"
   hostname    = "bastion-host"
   platform_id = "standard-v3"
@@ -26,7 +26,7 @@ resource "yandex_compute_instance" "bastion-host" {
     subnet_id          = yandex_vpc_subnet.bastion_subnet.id
     nat                = true
     ip_address         = "172.16.18.10"
-    security_group_ids = [yandex_vpc_security_group.secure-port-sg.id, yandex_vpc_security_group.inside_subnet.id]
+    security_group_ids = [yandex_vpc_security_group.secure_port_sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
   metadata = {
     user-data = "${file("./meta.yaml")}"
@@ -34,7 +34,7 @@ resource "yandex_compute_instance" "bastion-host" {
 }
 
 #vm-a
-resource "yandex_compute_instance" "vm-a" {
+resource "yandex_compute_instance" "vm_a" {
   name                      = "vm-a"
   hostname                  = "vm-a"
   zone                      = "ru-central1-a"
@@ -49,10 +49,10 @@ resource "yandex_compute_instance" "vm-a" {
 
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.internal_subnet-a.id
+    subnet_id          = yandex_vpc_subnet.internal_subnet_a.id
     nat                = false
     ip_address         = "172.16.15.10"
-    security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id, yandex_vpc_security_group.inside_subnet.id]
+    security_group_ids = [yandex_vpc_security_group.internal_balancer_sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
 
   scheduling_policy {
@@ -75,7 +75,7 @@ resource "yandex_compute_instance" "vm-a" {
 }
 
 #vm-b
-resource "yandex_compute_instance" "vm-b" {
+resource "yandex_compute_instance" "vm_b" {
   name        = "vm-b"
   hostname    = "vm-b"
   zone        = "ru-central1-b"
@@ -89,10 +89,10 @@ resource "yandex_compute_instance" "vm-b" {
 
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.internal_subnet-b.id
+    subnet_id          = yandex_vpc_subnet.internal_subnet_b.id
     nat                = false
     ip_address         = "172.16.16.10"
-    security_group_ids = [yandex_vpc_security_group.internal-bastion-sg.id, yandex_vpc_security_group.inside_subnet.id]
+    security_group_ids = [yandex_vpc_security_group.internal_balancer_sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
 
   scheduling_policy {
@@ -138,10 +138,10 @@ resource "yandex_compute_instance" "zabbix" {
   }
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.internal_subnet-lb.id
+    subnet_id          = yandex_vpc_subnet.internal_subnet_lb.id
     nat                = true
     ip_address         = "172.16.17.10"
-    security_group_ids = [yandex_vpc_security_group.zabbix-sg.id, yandex_vpc_security_group.inside_subnet.id]
+    security_group_ids = [yandex_vpc_security_group.zabbix_sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
   metadata = {
     user-data = "${file("./meta.yaml")}"
@@ -172,17 +172,17 @@ resource "yandex_compute_instance" "kibana" {
   }
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.internal_subnet-lb.id
+    subnet_id          = yandex_vpc_subnet.internal_subnet_lb.id
     nat                = true
     ip_address         = "172.16.17.11"
-    security_group_ids = [yandex_vpc_security_group.zabbix-sg.id, yandex_vpc_security_group.inside_subnet.id]
+    security_group_ids = [yandex_vpc_security_group.zabbix_sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
   metadata = {
     user-data = "${file("./meta.yaml")}"
   }
 }
 
-#elasticsearch
+#Elasticsearch
 resource "yandex_compute_instance" "elasticsearch" {
   name        = "elasticsearch"
   hostname    = "elasticsearch"
@@ -207,10 +207,10 @@ resource "yandex_compute_instance" "elasticsearch" {
   }
 
   network_interface {
-    subnet_id          = yandex_vpc_subnet.internal_subnet-lb.id
+    subnet_id          = yandex_vpc_subnet.internal_subnet_lb.id
     nat                = true
     ip_address         = "172.16.17.12"
-    security_group_ids = [yandex_vpc_security_group.zabbix-sg.id, yandex_vpc_security_group.inside_subnet.id]
+    security_group_ids = [yandex_vpc_security_group.zabbix_sg.id, yandex_vpc_security_group.inside_subnet.id]
   }
   metadata = {
     user-data = "${file("./meta.yaml")}"

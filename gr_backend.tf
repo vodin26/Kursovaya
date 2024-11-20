@@ -1,11 +1,11 @@
-resource "yandex_alb_backend_group" "backend-group" {
+resource "yandex_alb_backend_group" "backend_group" {
   name = "backend-group"
 
   http_backend {
     name             = "http-backend"
     weight           = 1
     port             = 80
-    target_group_ids = ["${yandex_alb_target_group.target-group.id}"]
+    target_group_ids = ["${yandex_alb_target_group.target_group.id}"]
     tls {
       sni = "backend-domain.internal"
     }

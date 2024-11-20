@@ -3,7 +3,7 @@ resource "yandex_vpc_network" "external_network" {
   name = "external-network"
 }
 #VMs subnet
-resource "yandex_vpc_subnet" "internal_subnet-a" {
+resource "yandex_vpc_subnet" "internal_subnet_a" {
   name           = "internal-subnet-a"
   network_id     = yandex_vpc_network.external_network.id
   v4_cidr_blocks = ["172.16.15.0/24"]
@@ -11,7 +11,7 @@ resource "yandex_vpc_subnet" "internal_subnet-a" {
   route_table_id = yandex_vpc_route_table.rt.id
 }
 
-resource "yandex_vpc_subnet" "internal_subnet-b" {
+resource "yandex_vpc_subnet" "internal_subnet_b" {
   name           = "internal-subnet-b"
   network_id     = yandex_vpc_network.external_network.id
   v4_cidr_blocks = ["172.16.16.0/24"]
@@ -37,7 +37,7 @@ resource "yandex_vpc_route_table" "rt" {
   }
 }
 #Load Balanser subnet
-resource "yandex_vpc_subnet" "internal_subnet-lb" {
+resource "yandex_vpc_subnet" "internal_subnet_lb" {
   name           = "internal_subnet-lb"
   zone           = "ru-central1-d"
   v4_cidr_blocks = ["172.16.17.0/24"]

@@ -1,17 +1,17 @@
 resource "yandex_alb_load_balancer" "load_balancer" {
   name               = "load-balancer"
   network_id         = yandex_vpc_network.external_network.id
-  security_group_ids = [yandex_vpc_security_group.inside_subnet.id, yandex_vpc_security_group.secure-port-sg.id]
+  security_group_ids = [yandex_vpc_security_group.inside_subnet.id, yandex_vpc_security_group.internal_balancer_sg.id]
 
   allocation_policy {
     location {
       zone_id   = "ru-central1-a"
-      subnet_id = yandex_vpc_subnet.internal_subnet-a.id
+      subnet_id = yandex_vpc_subnet.internal_subnet_a.id
     }
 
     location {
       zone_id   = "ru-central1-b"
-      subnet_id = yandex_vpc_subnet.internal_subnet-b.id
+      subnet_id = yandex_vpc_subnet.internal_subnet_b.id
     }
 
   }
@@ -33,3 +33,7 @@ resource "yandex_alb_load_balancer" "load_balancer" {
     }
   }
 }
+
+
+
+

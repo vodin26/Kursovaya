@@ -1,12 +1,12 @@
 output "bastion_external_ip" {
-  value = yandex_compute_instance.bastion-host.network_interface[0].nat_ip_address
+  value = yandex_compute_instance.bastion_host.network_interface[0].nat_ip_address
 }
 output "ip_address_a" {
-  value = yandex_compute_instance.vm-a.network_interface[0].ip_address
+  value = yandex_compute_instance.vm_a.network_interface[0].ip_address
 }
 
 output "ip_address_b" {
-  value = yandex_compute_instance.vm-b.network_interface[0].ip_address
+  value = yandex_compute_instance.vm_b.network_interface[0].ip_address
 }
 
 output "load_balancer_ip" {
