@@ -19,7 +19,7 @@
 
 Провайдер:
 
-Задаём параметры провайдера для yandex-cloud в [main.tf]([https://](https://github.com/vodin26/Kursovaya/blob/main/main.tf), объявляем переменные параметров провайдера в [variables.tf](https://), задаём значения в variables.auto.tfvars и вносим его в gitignore.
+Задаём параметры провайдера для yandex-cloud в [main.tf](https://github.com/vodin26/Kursovaya/blob/main/main.tf), объявляем переменные параметров провайдера в [variables.tf](https://), задаём значения в variables.auto.tfvars и вносим его в gitignore.
 
 
 
