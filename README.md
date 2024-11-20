@@ -19,47 +19,47 @@
 
 Провайдер:
 
-Задаём параметры провайдера для yandex-cloud в [main.tf](https://github.com/vodin26/Kursovaya/blob/main/main.tf), объявляем переменные параметров провайдера в [variables.tf](https://), задаём значения в variables.auto.tfvars и вносим его в gitignore.
+Задаём параметры провайдера для yandex-cloud в [main.tf](https://github.com/vodin26/Kursovaya/blob/main/main.tf), объявляем переменные параметров провайдера в [variables.tf](https://github.com/vodin26/Kursovaya/blob/main/variables.tf), задаём значения в variables.auto.tfvars и вносим его в gitignore.
 
 
 
 **Сеть:**
 
-Созданна основная сеть в [networks.tf](https://), две подсети в разных зонах доступности для вм, NAT шлюз и маршрутная таблица, подсеть для балансировщика, подсеть для бастионного хоста, резервируем статический ip для  бастионного хоста.
+Созданна основная сеть в [networks.tf](https://github.com/vodin26/Kursovaya/blob/main/networks.tf), две подсети в разных зонах доступности для вм, NAT шлюз и маршрутная таблица, подсеть для балансировщика, подсеть для бастионного хоста, резервируем статический ip для  бастионного хоста.
 
 
 
 **Целевая группа:**
 
-Создаём целевую группу для балансировщика [gr_terget.tf](https://), вносим в неё сети и подсети вм.
+Создаём целевую группу для балансировщика [gr_terget.tf](https://github.com/vodin26/Kursovaya/blob/main/gr_target.tf), вносим в неё сети и подсети вм.
 
 
 
 **Бэкенд группа:**
 
-Создаём группу для бэкенда в [gr_backend.tf](https://), добавляем целевую группу и проверку http
+Создаём группу для бэкенда в [gr_backend.tf](https://github.com/vodin26/Kursovaya/blob/main/gr_backend.tf), добавляем целевую группу и проверку http
 
 
 
 **Группа безопасности:**
 
-Создаём группу безопасности в [gr_secure.tf](https://), включаем в неё ресурсы и подсети и прописываем правила для доступа.
+Создаём группу безопасности в [gr_secure.tf](https://github.com/vodin26/Kursovaya/blob/main/gr_secure.tf), включаем в неё ресурсы и подсети и прописываем правила для доступа.
 
 
 **Балансер:**
 
-Создаём балансер в [alb.tf](https://), включаем в группы, прописываем зоны и listener.
+Создаём балансер в [alb.tf](https://github.com/vodin26/Kursovaya/blob/main/alb.tf), включаем в группы, прописываем зоны и listener.
 
 
 
 **ВМ:**
 
-Создаём виртуальные в [vm.tf](https://) машины для всех ресурсов, включаем в группы и подсети, назначаем ip, прописываем метаданные в [meta.yaml](https://)
+Создаём виртуальные в [vm.tf](https://github.com/vodin26/Kursovaya/blob/main/vm.tf) машины для всех ресурсов, включаем в группы и подсети, назначаем ip, прописываем метаданные в [meta.yaml](https://)
 
 
 **Выводы:**
 
-Прописываем выводы адресов ресурсов в [outputs.tf](https://)
+Прописываем выводы адресов ресурсов в [outputs.tf](https://github.com/vodin26/Kursovaya/blob/main/outputs.tf)
 
 
 
