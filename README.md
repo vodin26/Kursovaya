@@ -68,7 +68,7 @@
 
 **Настройка NGINX:**
 
-Создаём [web-playbook.yml](ansible/web-playbook.yml) в role прописываем index.html конфиги и задачи для установки NGINX.
+Создаём [web-playbook.yml](ansible/web-playbook.yml) в [role](ansible/roles/nginx) прописываем index.html конфиги и задачи для установки NGINX.
 
 Запускаем его:
 
@@ -80,15 +80,15 @@
 
 **Настройка Elastic:**
 
-Для этого создаём [elast-playbook.yml](ansible/elast-playbook.yml) в ролях прописываем установку docker через `comunity.docker` перед этим установив к себе коллекцию:  `ansible-galaxy collection install community.docker` , так как работа Elastic реалезованна через docker container.
+Для этого создаём [elast-playbook.yml](ansible/elast-playbook.yml) в [ролях](ansible/roles/elastic) прописываем установку docker через `comunity.docker` перед этим установив к себе коллекцию:  `ansible-galaxy collection install community.docker` , так как работа Elastic реалезованна через docker container.
 
 Настройка Kibana:
 
-Так же запускаеь через контейнер с помощью [kibana-playbook.yml](ansible/kibana-playbook.yml) и соответствующих ролей
+Так же запускаеь через контейнер с помощью [kibana-playbook.yml](ansible/kibana-playbook.yml) и соответствующих [ролей](ansible/roles/kibana)
 
 ![1740674856569](images/README/1740674856569.png)
 
-Установка [Filebeat ](ansible/filebeat-playbook.yml)на вэб сервера. В конфигу настраиваем отправку логов nginx в Elasticsearch.
+Установка [Filebeat ](ansible/filebeat-playbook.yml)на вэб сервера. В [конфиге ](ansible/roles/filebeat) настраиваем отправку логов nginx в Elasticsearch.
 
 Настройка Zabbix:
 
