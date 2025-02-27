@@ -22,23 +22,23 @@
 
 **Провайдер:**
 
-Задаём параметры провайдера для yandex-cloud в [main.tf](terraform/main.tf), объявляем переменные параметров провайдера в [variables.tf](https://), задаём значения в variables.tfvars и вносим его в gitignore.
+Задаём параметры провайдера для yandex-cloud в [main.tf](terraform/main.tf), объявляем переменные параметров провайдера в [variables.tf](terraform/variables.tf), задаём значения в variables.tfvars и вносим его в gitignore.
 
 **Сеть и группы:**
 
-Созданна основная сеть в [network.tf](https://), две подсети в разных зонах доступности для вм, NAT шлюз и маршрутная таблица, подсеть для балансировщика, подсеть для бастионного хоста. Используем [variables.tf](https://),  [locals.tf](https://),  [terraform.tfvars](https://) для реализации цикла for_each при создании подсетей. В этом же файле декларированны целевые группы с нужными планами из задания.
+Созданна основная сеть в [network.tf](terraform/network.tf), две подсети в разных зонах доступности для вм, NAT шлюз и маршрутная таблица, подсеть для балансировщика, подсеть для бастионного хоста. Используем [variables.tf](terraform/variables.tf),  [locals.tf](terraform/locals.tf),  [terraform.tfvars](.gitignore) для реализации цикла for_each при создании подсетей. В этом же файле декларированны целевые группы с нужными планами из задания.
 
 **Виртуальные машины:**
 
-В файле [vms.tf](https://) декларированны сздаваемые ресурсы. Бастион хост  с внешней сетью и внутренней подъсетью, два вэб сервера в разных зонах доступности только с внутренней сетью, zabbix, elastic, kibana с внешними ip.
+В файле [vms.tf](terraform/vms.tf) декларированны сздаваемые ресурсы. Бастион хост  с внешней сетью и внутренней подъсетью, два вэб сервера в разных зонах доступности только с внутренней сетью, zabbix, elastic, kibana с внешними ip.
 
 **Выводы:**
 
-Прописываем выводы адресов ресурсов в [outputs.tf](https://)
+Прописываем выводы адресов ресурсов в [output.tf](terraform/output.tf)
 
 **Бэкапы:**
 
-В файле [snapshot.tf](https://) настроенна система резервного копирования.
+В файле [snapshot.tf](terraform/snapshot.tf) настроенна система резервного копирования.
 
 **Проверка и запуск Terraform:**
 
@@ -68,7 +68,7 @@
 
 **Настройка NGINX:**
 
-Создаём [web-playbook.yml](https://) в role прописываем index.html конфиги и задачи для установки NGINX.
+Создаём [web-playbook.yml](ansible/web-playbook.yml) в role прописываем index.html конфиги и задачи для установки NGINX.
 
 Запускаем его:
 
@@ -80,23 +80,23 @@
 
 **Настройка Elastic:**
 
-Для этого создаём [elastic-playbook.yml](https://) в ролях прописываем установку docker через `comunity.docker` перед этим установив к себе коллекцию:  `ansible-galaxy collection install community.docker` , так как работа Elastic реалезованна через docker container.
+Для этого создаём [elast-playbook.yml](ansible/elast-playbook.yml) в ролях прописываем установку docker через `comunity.docker` перед этим установив к себе коллекцию:  `ansible-galaxy collection install community.docker` , так как работа Elastic реалезованна через docker container.
 
 Настройка Kibana:
 
-Так же запускаеь через контейнер с помощью [kibana-playbook.yml](https://) и соответствующих ролей
+Так же запускаеь через контейнер с помощью [kibana-playbook.yml](ansible/kibana-playbook.yml) и соответствующих ролей
 
 ![1740674856569](images/README/1740674856569.png)
 
-Установка [Filebeat ](https://)на вэб сервера. В конфигу настраиваем отправку логов nginx в Elasticsearch.
+Установка [Filebeat ](ansible/filebeat-playbook.yml)на вэб сервера. В конфигу настраиваем отправку логов nginx в Elasticsearch.
 
 Настройка Zabbix:
 
-Настраиваем и конфигурируем zabbix запускаем [zabbix_server-playbook.yml](https://)
+Настраиваем и конфигурируем zabbix запускаем [zabbix_server-playbook.yml](ansible/zabbix_server-playbook.yml)
 
 ![1740675512079](images/README/1740675512079.png)
 
-Далее устанавливаем агента на все ВМ, для этого запустим [zabbix_agent-playbook.yml](https://)
+Далее устанавливаем агента на все ВМ, для этого запустим [zabbix_agent-playbook.yml](ansible/zabbix_agent-playbook.yml)
 
 ![1740676042793](images/README/1740676042793.png)
 
